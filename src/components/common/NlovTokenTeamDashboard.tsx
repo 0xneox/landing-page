@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 type CardProps = {
   title: string;
@@ -7,13 +7,53 @@ type CardProps = {
   className?: string;
 };
 
+// Animated "Revealed Soon" component with glowing effect
+const RevealedSoon = ({ delay = 0 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+  
+  return (
+    <span 
+      className={`inline-block transition-all duration-1000 ease-out transform ${
+        isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      }`}
+      style={{
+        color: '#82FFEA',
+        fontSize: '12px',
+        fontWeight: 800,
+        letterSpacing: '0.2px',
+        whiteSpace: 'nowrap',
+        position: 'relative',
+        animation: isVisible ? 'pulse 2s infinite' : 'none'
+      }}
+    >
+      Revealed Soon
+      <span 
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(90deg, #82FFEA, #80B8FF)',
+          filter: 'blur(4px)',
+          opacity: 0.3,
+          animation: isVisible ? 'ping 2s infinite' : 'none',
+          zIndex: -1
+        }}
+      />
+    </span>
+  );
+};
+
 const tokenInfo = [
   { label: "Total supply", value: "500M" },
   { label: "Ticker", value: "$NLOV" },
   { label: "Chain", value: "SOL" },
-  { label: "Current Price", value: "$0.02" },
-  { label: "TGE Price", value: "$0.08" },
-  { label: "Fully Diluted Value", value: "$40M" },
+  { label: "Current Price", value: "revealed-soon" },
+  { label: "TGE Price", value: "revealed-soon" },
+  { label: "Fully Diluted Value", value: "revealed-soon" },
 ];
 
 const Card: React.FC<CardProps> = ({ title, subtitle, img, className }) => {
@@ -197,19 +237,38 @@ const TokenShowcase: React.FC = () => {
               />
 
               <div className="relative z-10 p-4 md:p-6 flex flex-col h-full">
+                <style>
+                  {`
+                    @keyframes pulse {
+                      0%, 100% { opacity: 1; }
+                      50% { opacity: 0.7; }
+                    }
+                    
+                    @keyframes ping {
+                      75%, 100% {
+                        transform: scale(2);
+                        opacity: 0;
+                      }
+                    }
+                  `}
+                </style>
                 <h3 className="text-lg md:text-xl font-semibold text-white mb-3">
                   Token info
                 </h3>
 
                 <div className="flex-1 space-y-1">
-                  {tokenInfo.map((item) => (
+                  {tokenInfo.map((item, index) => (
                     <div
                       key={item.label}
                       className="flex justify-between items-center py-1.5 border-b border-white/20 last:border-b-0"
                     >
                       <span className="text-white text-xs">{item.label}</span>
                       <span className="text-white font-medium text-xs">
-                        {item.value}
+                        {item.value === "revealed-soon" ? (
+                          <RevealedSoon delay={index * 100} />
+                        ) : (
+                          item.value
+                        )}
                       </span>
                     </div>
                   ))}

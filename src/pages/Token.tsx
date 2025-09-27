@@ -693,7 +693,8 @@ export default function TokenPage() {
                         <XAxis
                           dataKey="month"
                           stroke="#D4DFFF"
-                          tick={{ fill: "#D4DFFF" }}
+                          tick={false}
+                          axisLine={false}
                         />
                         <YAxis
                           domain={[0, 500]}
