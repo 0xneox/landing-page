@@ -194,9 +194,9 @@ const TokenShowcase: React.FC = () => {
       <div className="flex justify-center mb-16">
         <button
           onClick={() => {
-            window.location.href = "/resources";
+            window.location.href = "/token/tokenomics";
           }}
-          className="w-full max-w-[230px] relative px-6 md:px-8 py-3 md:py-4 rounded-xl text-black font-semibold text-base md:text-lg overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(137,189,255,0.8)]"
+          className="relative rounded-xl px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#0361DA]/30"
         >
           <div className="absolute inset-0">
             <img

@@ -31,8 +31,8 @@ const footerLinks = [
     title: "Resources",
     links: [
       { label: "Technical Papers", href: "/resources" },
-      { label: "Community", href: "/resources/docs" },
-      { label: "Blog & Updates", href: "/whitepaper" },
+      { label: "Community", href: "/resources" },
+      { label: "Blog & Updates", href: "/resources" },
     ],
   },
   {

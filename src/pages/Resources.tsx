@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SectionContainer } from "@/components/ui/Container";
 import PageLayout from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,7 @@ import {
 } from "@/components/icons/social-icons";
 import { PatternBackground } from "@/components/common/Highlight";
 import { getAllBlogs } from "@/utils/blogLoader";
-import { useState } from "react";
+
 
 const resources = [
   {
@@ -120,6 +120,15 @@ export default function ResourcesPage() {
     (currentPage - 1) * blogsPerPage,
     currentPage * blogsPerPage
   );
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const element = document.getElementById(window.location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
 
   return (
     <PageLayout
